@@ -58,11 +58,11 @@ class LicenseReportingPlugin implements Plugin<Project> {
      * @return DownloadLicensesExtension
      */
     protected DownloadLicensesExtension createDownloadLicensesExtension() {
-        downloadLicensesExtension = project.extensions.create(DOWNLOAD_LICENSES_TASK_NAME, DownloadLicensesExtension)
+        downloadLicensesExtension = project.extensions.create(DOWNLOAD_LICENSES_TASK_NAME, DownloadLicensesExtension, project)
 
-        def html = new LicensesReport(enabled: true, destination: { -> "${project.reporting.baseDir.path}/license" })
-        def xml = new LicensesReport(enabled: true, destination: { -> "${project.reporting.baseDir.path}/license" })
-        def json = new LicensesReport(enabled: true, destination: { -> "${project.reporting.baseDir.path}/license" })
+        def html = new LicensesReport(enabled: true, destination: { -> project.reporting.baseDirectory.get().dir('license').asFile })
+        def xml = new LicensesReport(enabled: true, destination: { -> project.reporting.baseDirectory.get().dir('license').asFile })
+        def json = new LicensesReport(enabled: true, destination: { -> project.reporting.baseDirectory.get().dir('license').asFile })
 
         downloadLicensesExtension.with {
             // Default for extension

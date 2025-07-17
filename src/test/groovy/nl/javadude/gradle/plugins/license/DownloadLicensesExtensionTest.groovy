@@ -27,7 +27,7 @@ class DownloadLicensesExtensionTest {
 
     @Before
     public void setupProject() {
-        extension = new DownloadLicensesExtension();
+        extension = new DownloadLicensesExtension(null);
     }
 
     @Test

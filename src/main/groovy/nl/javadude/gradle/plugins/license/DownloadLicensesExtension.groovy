@@ -15,12 +15,17 @@
  */
 package nl.javadude.gradle.plugins.license
 
+import javax.inject.Inject;
+
+import org.gradle.api.Project
 import org.gradle.util.ConfigureUtil
 
 /**
  * Extension contains attributes for {@link DownloadLicenses}.
  */
 class DownloadLicensesExtension {
+
+    private Project project
 
     /**
      * Custom license mapping.
@@ -104,13 +109,17 @@ class DownloadLicensesExtension {
         new LicenseMetadata(name, url)
     }
 
+    DownloadLicensesExtension(Project project) {
+        this.project = project
+    }
+
     /**
      * Configure report container.
      *
      * @param closure configuring closure
      */
     def report(Closure closure) {
-        ConfigureUtil.configure(closure, report)
+        project.configure(report, closure)
     }
 
     def static group(String group) {

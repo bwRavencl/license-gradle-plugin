@@ -15,7 +15,8 @@
  */
 package nl.javadude.gradle.plugins.license
 
-import groovy.util.slurpersupport.GPathResult
+import groovy.util.Node;
+import groovy.xml.XmlParser;
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.Dependency
@@ -250,12 +251,12 @@ class LicenseResolver {
             return noLicenseMetaData(dependencyDesc)
         }
 
-        XmlSlurper slurper = new XmlSlurper(true, false)
-        slurper.setErrorHandler(new org.xml.sax.helpers.DefaultHandler())
+        XmlParser xmlParser = new XmlParser(true, false)
+        xmlParser.setErrorHandler(new org.xml.sax.helpers.DefaultHandler())
 
-        GPathResult xml
+        Node xml
         try {
-            xml = slurper.parse(pStream)
+            xml = xmlParser.parse(pStream)
         } catch (org.xml.sax.SAXParseException e) {
             // Fatal errors are still throw by DefaultHandler, so handle them here.
             logger.warn("Unable to parse POM file for $dependencyDesc")
