@@ -17,7 +17,7 @@ plugins {
     id "java"
 }
 
-apply plugin: "com.github.hierynomus.license-report"
+apply plugin: "com.benjaminsproule.license-report"
 
 group = "testGroup"
 version = "1.5"
